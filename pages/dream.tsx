@@ -49,7 +49,7 @@ const Home: NextPage = () => {
     maxFileCount: 1,
     mimeTypes: ["image/jpeg", "image/png", "image/jpg"],
     editor: { images: { crop: false } },
-    tags: [data?.remainingGenerations > 3 ? "paid" : "free"],
+    // tags: [data?.remainingGenerations > 3 ? "paid" : "free"],
     styles: {
       colors: {
         primary: "#2563EB", // Primary buttons & links
@@ -279,8 +279,7 @@ const Home: NextPage = () => {
                   <div className="h-[250px] flex flex-col items-center space-y-6 max-w-[670px] -mt-8">
                     <div className="max-w-xl text-gray-300">
                       Sign in below with Google to create a free account and
-                      redesign your room today. You will get 3 generations for
-                      free.
+                      redesign your room today.
                     </div>
                     <button
                       onClick={() => signIn("google")}
