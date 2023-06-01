@@ -15,7 +15,7 @@ export default function Dashboard({ rooms }: { rooms: Room[] }) {
   return (
     <div className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
       <Head>
-        <title>RoomGPT Dashboard</title>
+        <title>Decorion Dashboard</title>
       </Head>
       <Header
         photo={session?.user?.image || undefined}
@@ -23,7 +23,7 @@ export default function Dashboard({ rooms }: { rooms: Room[] }) {
       />
       <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-12 sm:mb-0 mb-8">
         <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-5">
-          View your <span className="text-blue-600">room</span> generations
+          View your room generations
         </h1>
         {rooms.length === 0 ? (
           <p className="text-gray-300">
@@ -37,8 +37,7 @@ export default function Dashboard({ rooms }: { rooms: Room[] }) {
           </p>
         ) : (
           <p className="text-gray-300">
-            Browse through your previous room generations below. Any feedback?
-            Email hassan@roomgpt.io
+            Browse through your previous room generations below
           </p>
         )}
         {rooms.map((room) => (

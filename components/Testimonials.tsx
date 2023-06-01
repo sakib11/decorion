@@ -80,11 +80,11 @@ export function Testimonials() {
           <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-gray-300 sm:text-6xl">
             Loved by many worldwide.
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-lg sm:text-gray-400  text-gray-500 leading-7">
+          {/* <p className="mx-auto mt-6 max-w-xl text-lg sm:text-gray-400  text-gray-500 leading-7">
             See what our over 1 million users are saying about the product.
-          </p>
+          </p> */}
         </div>
-        <ul
+        {/* <ul
           role="list"
           className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:gap-8 lg:mt-16 lg:max-w-none lg:grid-cols-3"
         >
@@ -129,7 +129,7 @@ export function Testimonials() {
               </ul>
             </li>
           ))}
-        </ul>
+        </ul> */}
       </div>
     </section>
   );

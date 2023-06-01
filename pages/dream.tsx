@@ -49,7 +49,7 @@ const Home: NextPage = () => {
     maxFileCount: 1,
     mimeTypes: ["image/jpeg", "image/png", "image/jpg"],
     editor: { images: { crop: false } },
-    // tags: [data?.remainingGenerations > 3 ? "paid" : "free"],
+    tags: [data?.remainingGenerations > 3 ? "paid" : "free"],
     styles: {
       colors: {
         primary: "#2563EB", // Primary buttons & links
@@ -66,9 +66,10 @@ const Home: NextPage = () => {
       },
     },
     onValidate: async (file: File): Promise<undefined | string> => {
-      return data.remainingGenerations === 0
-        ? `No more credits left. Buy more above.`
-        : undefined;
+      // return data.remainingGenerations === 0
+      //   ? `No more credits left. Buy more above.`
+      //   : undefined;
+      return undefined;
     },
   };
 
@@ -126,14 +127,14 @@ const Home: NextPage = () => {
   return (
     <div className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
       <Head>
-        <title>RoomGPT</title>
+        <title>Decorion</title>
       </Head>
       <Header
         photo={session?.user?.image || undefined}
         email={session?.user?.email || undefined}
       />
       <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-4 sm:mb-0 mb-8">
-        {status === "authenticated" ? (
+        {/* {status === "authenticated" ? (
           <Link
             href="/buy-credits"
             className="border border-gray-700 rounded-2xl py-2 px-4 text-gray-400 text-sm my-6 duration-300 ease-in-out hover:text-gray-300 hover:scale-105 transition"
@@ -153,11 +154,11 @@ const Home: NextPage = () => {
             <span className="font-semibold text-gray-200">1 million users</span>{" "}
             have used roomGPT so far
           </a>
-        )}
+        )} */}
         <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-5">
-          Generate your <span className="text-blue-600">dream</span> room
+          Generate your dream room
         </h1>
-        {status === "authenticated" && data && !restoredImage && (
+        {/* {status === "authenticated" && data && !restoredImage && (
           <p className="text-gray-400">
             You have{" "}
             <span className="font-semibold text-gray-300">
@@ -178,7 +179,7 @@ const Home: NextPage = () => {
               </span>
             )}
           </p>
-        )}
+        )} */}
         <ResizablePanel>
           <AnimatePresence mode="wait">
             <motion.div className="flex justify-between items-center w-full flex-col mt-4">

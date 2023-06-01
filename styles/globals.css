@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@media (min-width: 400px) {
+/* @media (min-width: 400px) {
   .background-gradient::before {
     background: radial-gradient(
       20% 50% at 50% 50%,
@@ -16,4 +16,7 @@
     transform: scale(1);
     pointer-events: none;
   }
+} */
+.cursor{
+  cursor: pointer;
 }

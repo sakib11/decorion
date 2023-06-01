@@ -43,9 +43,10 @@ export default async function handler(
   });
 
   // Check if user has any credits left
-  if (user?.credits === 0) {
-    return res.status(400).json(`You have no generations left`);
-  }
+  //******** Commented out this code */
+  // if (user?.credits === 0) {
+  //   return res.status(400).json(`You have no generations left`);
+  // }
 
   let REPLICATE_KEY = process.env.REPLICATE_API_KEY;
 
@@ -55,16 +56,17 @@ export default async function handler(
   }
 
   // If they have credits, decrease their credits by one and continue
-  await prisma.user.update({
-    where: {
-      email: session.user.email!,
-    },
-    data: {
-      credits: {
-        decrement: 1,
-      },
-    },
-  });
+  //******** Commented out this code */
+  // await prisma.user.update({
+  //   where: {
+  //     email: session.user.email!,
+  //   },
+  //   data: {
+  //     credits: {
+  //       decrement: 1,
+  //     },
+  //   },
+  // });
 
   try {
     const { imageUrl, theme, room } = req.body;
@@ -155,16 +157,17 @@ export default async function handler(
     );
   } catch (error) {
     // Increment their credit if something went wrong
-    await prisma.user.update({
-      where: {
-        email: session.user.email!,
-      },
-      data: {
-        credits: {
-          increment: 1,
-        },
-      },
-    });
+    //******** Commented out this code */
+    // await prisma.user.update({
+    //   where: {
+    //     email: session.user.email!,
+    //   },
+    //   data: {
+    //     credits: {
+    //       increment: 1,
+    //     },
+    //   },
+    // });
     console.error(error);
     res.status(500).json("Failed to restore image");
   }
