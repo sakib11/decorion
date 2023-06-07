@@ -20,6 +20,7 @@ const Home: NextPage = () => {
       <Header
         photo={session?.user?.image || undefined}
         email={session?.user?.email || undefined}
+        phone={(session?.user as any)?.phone || undefined}
       />
       <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 sm:mt-20 mt-20 background-gradient">
         <h1 className="mx-auto max-w-4xl font-display text-5xl font-bold tracking-normal text-gray-300 sm:text-7xl">
