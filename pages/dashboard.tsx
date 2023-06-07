@@ -20,6 +20,7 @@ export default function Dashboard({ rooms }: { rooms: Room[] }) {
       <Header
         photo={session?.user?.image || undefined}
         email={session?.user?.email || undefined}
+        phone={(session?.user as any)?.phone || undefined}
       />
       <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-12 sm:mb-0 mb-8">
         <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-5">
@@ -58,11 +59,19 @@ export async function getServerSideProps(ctx: any) {
     return { props: { rooms: [] } };
   }
 
+  const userObj: any = {};
+
+  if (session.user.email) {
+    userObj.email = session.user.email;
+  }
+
+  if ((session.user as any).phone) {
+    userObj.phone = (session.user as any).phone;
+  }
+
   let rooms = await prisma.room.findMany({
     where: {
-      user: {
-        email: session.user.email,
-      },
+      user: userObj,
     },
     select: {
       inputImage: true,

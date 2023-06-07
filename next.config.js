@@ -3,6 +3,12 @@ module.exports = {
   reactStrictMode: true,
   images: {
     domains: ["upcdn.io", "replicate.delivery", "lh3.googleusercontent.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "www.gravatar.com",
+      },
+    ],
   },
   async redirects() {
     return [

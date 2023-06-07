@@ -28,19 +28,19 @@ export default async function handler(
   }
 
   // Get user from DB
-  const user = await prisma.user.findUnique({
-    where: {
-      email: session.user.email!,
-    },
-    select: {
-      credits: true,
-      _count: {
-        select: {
-          purchases: true,
-        },
-      },
-    },
-  });
+  // const user = await prisma.user.findUnique({
+  //   where: {
+  //     email: session.user.email!,
+  //   },
+  //   select: {
+  //     credits: true,
+  //     _count: {
+  //       select: {
+  //         purchases: true,
+  //       },
+  //     },
+  //   },
+  // });
 
   // Check if user has any credits left
   //******** Commented out this code */
@@ -51,9 +51,9 @@ export default async function handler(
   let REPLICATE_KEY = process.env.REPLICATE_API_KEY;
 
   // Check to see if user is a paying customer
-  if (user?._count?.purchases && user?._count?.purchases > 0) {
-    REPLICATE_KEY = process.env.REPLICATE_API_KEY_PAID;
-  }
+  // if (user?._count?.purchases && user?._count?.purchases > 0) {
+  //   REPLICATE_KEY = process.env.REPLICATE_API_KEY_PAID;
+  // }
 
   // If they have credits, decrease their credits by one and continue
   //******** Commented out this code */
@@ -128,14 +128,23 @@ export default async function handler(
       }
     }
 
+    const connectObj: any = {};
+
+    if (session.user.email) {
+      connectObj.email = session.user.email;
+    }
+
+    if ((session.user as any)?.phone) {
+      const userInfo: any = session.user;
+      connectObj.phone = userInfo.phone;
+    }
+
     if (generatedImage) {
       await prisma.room.create({
         data: {
           replicateId: roomId,
           user: {
-            connect: {
-              email: session.user.email!,
-            },
+            connect: connectObj,
           },
           inputImage: originalImage,
           outputImage: generatedImage,

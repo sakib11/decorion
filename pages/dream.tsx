@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { UploadDropzone } from "react-uploader";
 import { Uploader } from "uploader";
 import { CompareSlider } from "../components/CompareSlider";
@@ -22,6 +22,7 @@ import { Rings } from "react-loader-spinner";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Toaster, toast } from "react-hot-toast";
+import { MobileAuth } from "../components/mobileSignIn";
 
 // Configuration for the uploader
 const uploader = Uploader({
@@ -42,8 +43,9 @@ const Home: NextPage = () => {
   const [room, setRoom] = useState<roomType>("Living Room");
 
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const { data, mutate } = useSWR("/api/remaining", fetcher);
+  // const { data, mutate } = useSWR("/api/remaining", fetcher);
   const { data: session, status } = useSession();
+  console.log("session%o", session);
 
   const options = {
     maxFileCount: 1,
@@ -104,7 +106,7 @@ const Home: NextPage = () => {
     if (res.status !== 200) {
       setError(response as any);
     } else {
-      mutate();
+      // mutate();
       const rooms =
         (JSON.parse(localStorage.getItem("rooms") || "[]") as string[]) || [];
       rooms.push(response.id);
@@ -132,6 +134,7 @@ const Home: NextPage = () => {
       <Header
         photo={session?.user?.image || undefined}
         email={session?.user?.email || undefined}
+        phone={(session?.user as any)?.phone || undefined}
       />
       <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-4 sm:mb-0 mb-8">
         {/* {status === "authenticated" ? (
@@ -276,24 +279,27 @@ const Home: NextPage = () => {
                 </>
               ) : (
                 !originalPhoto && (
-                  <div className="h-[250px] flex flex-col items-center space-y-6 max-w-[670px] -mt-8">
-                    <div className="max-w-xl text-gray-300">
-                      Sign in below with Google to create a free account and
-                      redesign your room today.
+                  <Fragment>
+                    <div className="h-[190px] flex flex-col items-center space-y-6 max-w-[670px] -mt-8">
+                      <div className="max-w-xl text-gray-300">
+                        Sign in below with Google to create a free account and
+                        redesign your room today.
+                      </div>
+                      <button
+                        onClick={() => signIn("google")}
+                        className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-2xl flex items-center space-x-2"
+                      >
+                        <Image
+                          src="/google.png"
+                          width={20}
+                          height={20}
+                          alt="google's logo"
+                        />
+                        <span>Sign in with Google</span>
+                      </button>
                     </div>
-                    <button
-                      onClick={() => signIn("google")}
-                      className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-2xl flex items-center space-x-2"
-                    >
-                      <Image
-                        src="/google.png"
-                        width={20}
-                        height={20}
-                        alt="google's logo"
-                      />
-                      <span>Sign in with Google</span>
-                    </button>
-                  </div>
+                    <MobileAuth></MobileAuth>
+                  </Fragment>
                 )
               )}
               {originalPhoto && !restoredImage && (

@@ -20,3 +20,55 @@
 .cursor{
   cursor: pointer;
 }
+
+.phonenumber{
+  margin-bottom: 6px;
+  margin-top: -11px;
+}
+
+.phonenumber input{
+  color: black;
+  padding: 10px 12px;
+  width: 200px;
+}
+
+.errorPhone{
+  font-size: 13px;
+  color: #fff;
+  height: 15px;
+}
+
+.errorVerification p{
+  font-size: 13px;
+  color: tomato;
+  margin-top: -10px;
+}
+
+.con{
+  position: relative;
+  border-radius: 100%;
+  width: 50px;
+}
+
+.menuu{
+  position: absolute;
+  background-color: 	#808080;
+  top: 100%;
+  right: 10px;
+  display: none;
+}
+
+.menuu li{
+  text-align: left;
+  padding: 5px 10px;
+  color: black;
+}
+
+.menuu li:nth-child(1){
+  border-bottom: 1px solid #fff;
+}
+
+.con:hover > ul {
+  display: block;  
+}
+

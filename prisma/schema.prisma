@@ -47,7 +47,10 @@ model User {
   sessions      Session[]
   rooms         Room[]
   purchases     Purchase[]
+  phone         String?    @unique
+  otp           String?
 }
+
 
 model VerificationToken {
   identifier String

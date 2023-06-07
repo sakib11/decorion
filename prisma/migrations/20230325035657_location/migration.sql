@@ -6,4 +6,6 @@
 */
 -- AlterTable
 ALTER TABLE "User" DROP COLUMN "boughtCredits",
-ADD COLUMN     "location" TEXT;
+ADD COLUMN     "location" TEXT,
+ADD COLUMN     "phone" TEXT,
+ADD COLUMN     "otp" TEXT;
