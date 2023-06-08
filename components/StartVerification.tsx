@@ -1,12 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import "react-phone-number-input/style.css";
 import Input from "react-phone-number-input/input";
-import {
-  isPossiblePhoneNumber,
-  isValidPhoneNumber,
-  parsePhoneNumber,
-} from "react-phone-number-input";
-import { render } from "react-dom";
 
 export function StartVerification({ onSubmit }: Record<string, any>) {
   let phone: string;
@@ -20,6 +14,13 @@ export function StartVerification({ onSubmit }: Record<string, any>) {
     let removePlus = phone[0] === "+" ? phone.substring(1) : phone;
 
     setIsValid(false);
+
+    let isnum = /^\d+$/.test(removePlus);
+
+    if (!isnum) {
+      setIsValid(false);
+      return;
+    }
 
     if (removePlus.length === 11 && removePlus.startsWith("8801") === true) {
       setIsValid(false);
@@ -64,7 +65,7 @@ export function StartVerification({ onSubmit }: Record<string, any>) {
       </div>
       <div>
         {isValid === false ? (
-          <div className="errorPhone">Pls enter a valid phone number</div>
+          <div className="errorPhone">Enter a valid phone number</div>
         ) : (
           <div className="errorPhone"></div>
         )}

@@ -77,9 +77,9 @@ export function Testimonials() {
     >
       <div className="mx-auto px-4 sm:px-6 lg:px-8 md:px-7">
         <div className="mx-auto md:text-center">
-          <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-gray-300 sm:text-6xl">
-            Loved by many worldwide.
-          </h1>
+          <h6 className="mx-auto max-w-4xl font-display text-2xl font-bold tracking-normal text-gray-300 sm:text-3xl">
+            Try it yourself and unleash your creativity. It's free forever!
+          </h6>
           {/* <p className="mx-auto mt-6 max-w-xl text-lg sm:text-gray-400  text-gray-500 leading-7">
             See what our over 1 million users are saying about the product.
           </p> */}

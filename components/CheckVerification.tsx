@@ -14,7 +14,10 @@ export function EnterVerificationCode({
     setError(false);
     setIsLoading(false);
     setVerificationCode(val);
-    if (val.length === 6) {
+
+    let isnum = /^\d+$/.test(val);
+
+    if (val.length === 6 && isnum) {
       setIsValid(true);
     } else {
       setIsValid(false);
@@ -41,7 +44,7 @@ export function EnterVerificationCode({
       className="mb-3"
     >
       <label className="block mb-2 text-sm font-medium text-gray-300 dark:text-white">
-        Enter verification code below
+        Enter verification code
       </label>
       <OTPInput
         value={verificationCode}

@@ -73,7 +73,12 @@ export default function Header({
                 </Link>
               </li>
 
-              <li onClick={logOut}>Sign Out</li>
+              <li
+                className=" hover:text-blue-400 transition cursor-pointer"
+                onClick={logOut}
+              >
+                Sign Out
+              </li>
             </ul>
 
             {photo ? (

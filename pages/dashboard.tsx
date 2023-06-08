@@ -31,7 +31,7 @@ export default function Dashboard({ rooms }: { rooms: Room[] }) {
             You have no room generations. Generate one{" "}
             <Link
               href="/dream"
-              className="text-blue-600 underline underline-offset-2"
+              className="hereLink underline underline-offset-2"
             >
               here
             </Link>

@@ -46,7 +46,7 @@ export function MobileAuth() {
         />
       )}
       <div className="errorVerification">
-        {error && <p>Code didn't match. Pls try again </p>}
+        {error && <p>Please try with valid OTP</p>}
       </div>
     </div>
   );
