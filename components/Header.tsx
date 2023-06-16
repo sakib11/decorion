@@ -20,7 +20,7 @@ export default function Header({
       <Link href="/dream" className="flex space-x-2 ">
         <Image
           alt="logo"
-          src="/decorion.png"
+          src="/logo.jpeg"
           className="cursor"
           width={150}
           height={70}

@@ -53,7 +53,7 @@
 
 .menuu{
   position: absolute;
-  background-color: 	#808080;
+  background-color: 	#3B82CA;
   top: 100%;
   right: 10px;
   display: none;
@@ -62,7 +62,7 @@
 .menuu li{
   text-align: left;
   padding: 5px 10px;
-  color: black;
+  color: #F1F5F9;
 }
 
 .menuu li:nth-child(1){
@@ -76,4 +76,9 @@
 
 .hereLink{
   color: #C19F44;
+}
+
+.mainTitle{
+  color: #FAF7F0;
+  opacity: 80%;
 }

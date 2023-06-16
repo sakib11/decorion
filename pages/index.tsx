@@ -26,12 +26,12 @@ const Home: NextPage = () => {
         <h1 className="mx-auto max-w-4xl font-display text-5xl font-bold tracking-normal text-gray-300 sm:text-7xl">
           Design your dream home with the power of AI
         </h1>
-        <h2 className="mx-auto mt-12 max-w-xl text-lg sm:text-gray-400  text-gray-500 leading-7">
+        <h2 className="mx-auto mt-12 max-w-xl text-lg leading-7 mainTitle">
           Take a picture of your room and see how your room looks in different
           themes. Remodel your room today.
         </h2>
         <Link
-          className="bg-[#E3D27D] rounded-xl text-white font-medium px-4 py-3 sm:mt-10 mt-8 hover:bg-blue-500 transition"
+          className="bg-[#4C6721] rounded-xl text-white font-medium px-4 py-3 sm:mt-10 mt-8 hover:bg-blue-500 transition"
           href="/dream"
         >
           Generate your dream room
