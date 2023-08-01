@@ -6,10 +6,6 @@ async function hashPassword(plaintextPassword: string) {
   return await bcrypt.hash(plaintextPassword, 10);
 }
 
-// async function comparePassword(plaintextPassword: string, hash: string) {
-//   return await bcrypt.compare(plaintextPassword, hash);
-// }
-
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   const { email, name, password } = req.body;
 
