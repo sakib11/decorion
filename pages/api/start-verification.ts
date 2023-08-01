@@ -1,48 +1,96 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../lib/prismadb";
+import nodemailer from "nodemailer";
+import { DateTime } from "luxon";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-  const { phone } = req.body;
-  let formData = new URLSearchParams();
+  const { email } = req.body;
+  console.log("api", email);
+
   let otp = Math.floor(100000 + Math.random() * 900000);
   let msg = `Your Decorion OTP is ${otp}`;
-  formData.append("to", phone);
-  formData.append("msg", msg);
-  formData.append("api_key", "Mvo1jau86lN8So8JtTFmj003PJTA456Ed3LY7tme");
+
+  const now = DateTime.now();
+  const expiresAt = now.plus({ minutes: 5 }).toISO();
 
   const user = await prisma.user.findFirst({
     where: {
-      phone,
+      email,
     },
   });
 
   if (!user) {
-    await prisma.user.create({
-      data: {
-        phone,
-        otp: otp.toString(),
-        image:
-          "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y",
-      },
-    });
-  } else {
-    await prisma.user.update({
-      where: {
-        phone,
-      },
-      data: {
-        otp: otp.toString(),
-        image:
-          "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y",
-      },
-    });
+    try {
+      await prisma.user.create({
+        data: {
+          email,
+          otp: otp.toString(),
+          otpExpiresAt: expiresAt,
+          emailVerified: false,
+          image:
+            "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y",
+        },
+      });
+      let smtpTransport = nodemailer.createTransport({
+        service: "Gmail",
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+          user: "decorionxy@gmail.com", // pass the values in empty strings
+          pass: "qkyrchdfjoirxxhl",
+        },
+      });
+
+      await smtpTransport.sendMail({
+        from: "decorionxy@gmail.com",
+        to: email,
+        text: msg,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    return res.status(200).send("Success");
   }
 
-  await fetch("https://api.sms.net.bd/sendsms", {
-    method: "POST",
-    body: formData,
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  });
+  if (user && !user.password) {
+    try {
+      await prisma.user.update({
+        where: {
+          email,
+        },
+        data: {
+          otp: otp.toString(),
+          otpExpiresAt: expiresAt,
+          emailVerified: false,
+        },
+      });
 
-  return res.status(200).send("Success");
+      let smtpTransport = nodemailer.createTransport({
+        service: "Gmail",
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+          user: "", // pass the values in empty strings
+          pass: "",
+        },
+      });
+
+      await smtpTransport.sendMail({
+        from: "",
+        to: email,
+        text: msg,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    return res.status(200).send("Success");
+  }
+
+  if (user && user.password) {
+    return res.status(400).send("User exists");
+  }
 }

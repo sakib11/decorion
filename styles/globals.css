@@ -82,3 +82,72 @@
   color: #FAF7F0;
   opacity: 80%;
 }
+
+
+/*
+New code
+*/
+
+.formClass{
+  position: relative;
+  width: 24%;
+}
+
+.loginFormClass{
+  width: 100%;
+  margin-top: 6px !important;
+}
+.extendedform{
+  width: 27%;
+}
+
+.errormsg{
+  position: absolute;
+  text-align: left;
+  color:tan;
+  top: 43px;
+}
+
+.extendedInput{
+  width: 100%;
+}
+
+.nameerror{
+  top:47px;
+}
+
+.passworderror{
+  top:131px;
+}
+
+.cpassworderror{
+  top:211px;
+}
+
+.rpassworderror{
+  top:49px;
+}
+
+.rcpassworderror{
+  top:130px;
+}
+
+.mt24px{
+  margin-top: 24px;
+}
+
+.signininstead{
+  color: #000;
+}
+
+.errormsgcolor{
+  color:tan;
+}
+
+.signinerrmsg{
+  margin-top: 67px;
+}
+
+.mts{
+  margin-top: -5px !important;
+}

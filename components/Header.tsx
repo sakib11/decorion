@@ -96,7 +96,7 @@ export default function Header({
         )) || (
           <Link
             className="flex max-w-fit items-center justify-center space-x-2 rounded-lg border border-blue-600 text-white px-5 py-2 text-sm shadow-md hover:bg-blue-400 bg-blue-600 font-medium transition"
-            href="/dream"
+            href="/auth/email-sign-up"
           >
             <p>Sign Up </p>
           </Link>

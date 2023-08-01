@@ -280,7 +280,7 @@ const Home: NextPage = () => {
               ) : (
                 !originalPhoto && (
                   <Fragment>
-                    <div className="h-[190px] flex flex-col items-center space-y-6 max-w-[670px] -mt-8">
+                    <div className="h-[128px] flex flex-col items-center space-y-6 max-w-[670px] -mt-8">
                       <div className="max-w-xl text-gray-300">
                         Sign in below with Google to create a free account and
                         redesign your room today.
