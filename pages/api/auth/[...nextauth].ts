@@ -3,6 +3,11 @@ import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "../../../lib/prismadb";
 import Credentials from "next-auth/providers/credentials";
+import bcrypt from "bcrypt";
+
+async function comparePassword(plaintextPassword: string, hash: string) {
+  return await bcrypt.compare(plaintextPassword, hash);
+}
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -19,27 +24,39 @@ export const authOptions: NextAuthOptions = {
     Credentials({
       name: "credentials",
       credentials: {
-        phone: { label: "phone", type: "text" },
-        verificationCode: { label: "verificationCode", type: "text" },
+        email: { label: "email", type: "text" },
+        password: { label: "password", type: "password" },
       },
 
-      authorize: async ({ verificationCode, phone }: any): Promise<any> => {
-        console.log("dsfsdf", { verificationCode, phone });
+      authorize: async ({ email, password }: any): Promise<any> => {
+        console.log("11111", { email, password });
 
         const user = await prisma.user.findFirst({
           where: {
-            phone,
-            otp: verificationCode,
+            email,
           },
         });
-        return user ? user : null;
+
+        if (!user) {
+          return null;
+        }
+
+        if (
+          (await comparePassword(
+            password,
+            user.password ? user.password : ""
+          )) === false
+        ) {
+          return null;
+        }
+        return user;
       },
     }),
   ],
   callbacks: {
     jwt: async ({ token, user }: any) => {
       if (user) {
-        token.phone = user.phone;
+        token.email = user.email;
         // token.accessToken = user.data.auth.token;
       }
 
@@ -48,7 +65,7 @@ export const authOptions: NextAuthOptions = {
     session: ({ session, token, user }: any) => {
       if (token) {
         console.log("token%o", token);
-        session.user.phone = token.phone;
+        session.user.email = token.email;
         session.user.accessToken = token.accessToken;
       }
       return session;
