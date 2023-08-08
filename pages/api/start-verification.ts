@@ -32,18 +32,19 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         },
       });
       let smtpTransport = nodemailer.createTransport({
-        service: "Gmail",
-        host: "smtp.gmail.com",
+        host: "smtp.sendgrid.net",
         port: 465,
         secure: true,
+        requireTLS: true,
+        debug: true,
         auth: {
-          user: "decorionxy@gmail.com", // pass the values in empty strings
-          pass: "qkyrchdfjoirxxhl",
+          user: "apikey", // pass the values in empty strings
+          pass: process.env.SENDGRID_API_KEY,
         },
       });
 
       await smtpTransport.sendMail({
-        from: "decorionxy@gmail.com",
+        from: "info@decorion.xyz",
         to: email,
         text: msg,
       });
