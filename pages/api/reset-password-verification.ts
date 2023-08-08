@@ -2,13 +2,15 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../lib/prismadb";
 import nodemailer from "nodemailer";
 import { DateTime } from "luxon";
+import { otpEmailTemplate } from "../../template/email";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   console.log("reset");
   const { email } = req.body;
 
   let otp = Math.floor(100000 + Math.random() * 900000);
-  let msg = `Your Decorion OTP is ${otp}`;
+
+  let emailTemplate = await otpEmailTemplate(otp.toString(), "reset password");
 
   const now = DateTime.now();
   const expiresAt = now.plus({ minutes: 5 }).toISO();
@@ -49,7 +51,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     await smtpTransport.sendMail({
       from: "info@decorion.xyz",
       to: email,
-      text: msg,
+      subject: "Reset password verification code",
+      html: emailTemplate,
     });
   } catch (error) {
     console.log(error);
